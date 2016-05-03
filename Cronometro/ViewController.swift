@@ -10,9 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var timerLabel: UILabel!
+    var timer = NSTimer()
+    var time = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +23,26 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func increaseTime() {
+        self.time += 1
+        self.timerLabel.text = String(self.time)
+    }
+    
+    @IBAction func play(sender: AnyObject) {
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.increaseTime), userInfo: nil, repeats: true)
+    }
+    
+    @IBAction func pause(sender: AnyObject) {
+        self.timer.invalidate()
+    }
+    
+    @IBAction func stop(sender: AnyObject) {
+        self.time = 0
+        self.timerLabel.text = String(self.time)
+        self.timer.invalidate()
+    }
+    
+    
 
 }
 
